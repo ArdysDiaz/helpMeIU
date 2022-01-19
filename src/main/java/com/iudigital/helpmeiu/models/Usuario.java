@@ -1,6 +1,7 @@
 package com.iudigital.helpmeiu.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class Usuario {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,11 +35,11 @@ public class Usuario {
     private boolean red_social;
     private String image;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "roles_usuarios",
             joinColumns = @JoinColumn(name = "usuarios_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private List<Roles> roles_usuarios;
+    private List<Roles> roles;
 
 }

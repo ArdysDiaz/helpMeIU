@@ -1,5 +1,6 @@
 package com.iudigital.helpmeiu.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,4 @@ public class Roles {
     @Column(length = 20, unique = true)
     private String nombre;
     private String descripcion;
-
-    @ManyToMany
-    private List<Usuario> usuarios;
 }
